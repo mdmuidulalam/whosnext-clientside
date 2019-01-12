@@ -1,0 +1,99 @@
+<div style="padding-top: 10px;" >
+    <div class="col-lg-8 col-sm-12">
+        <div class="box box-success">
+            <div class="box-body">
+                <h2 class="box-title"> <i class="fas fa-plus"></i> Ask Treat</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 col-sm-12">
+        <div class="box box-group">
+            <div class="box-body">
+                <div class="row form-group">
+                    <div class="col-lg-1 col-sm-12 text-center">
+                        <h2><i class="fas fa-concierge-bell"></i></h2>
+                    </div>
+                    <div class="col-lg-11 col-sm-12">
+                        <input id="heading" type="text" class="form-control" placeholder="Give a Heading" maxlength="32" [(ngModel)]="treat.Heading">
+                    </div>
+                </div>                
+                <div class="row" [ngClass]="{ 'form-group': selectedFriend == null }">
+                    <div *ngIf="selectedFriend != null" class="col-lg-8 col-sm-12">
+                        <div class="box box-success">
+                            <div class="box-body">
+                                <h4 class="normal-text">{{selectedFriend.name}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <button class="form-control btn btn-success" data-toggle="modal" data-target="#firndsInModal">Choose a friend</button>
+                        <p *ngIf="submitted && selectedFriend == null" class="text-danger">Please, choose a friend.</p>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-lg-8 col-sm-12">
+                        <label for="reason">Reason</label>
+                        <input id="reason" type="text" class="form-control" placeholder="Give a Reason" [(ngModel)]="treat.Reason" [ngClass]="{ 'is-invalid': submitted && treat.Reason.length == 0 }" [ngbTypeahead]="search">
+                        <p *ngIf="submitted && treat.Reason.length == 0" class="text-danger">Enter a reason.</p>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <label for="deadline">Deadline</label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Give a Deadline" [(ngModel)]="deadlineDate" ngbDatepicker (dateSelect)="deallineOnChange()" #d="ngbDatepicker" [ngClass]="{ 'is-invalid':submitted && (invalidDeadlineDate || showFutureDateError) }" (change)="deallineOnChange()">
+                            <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i class="fa fa-calendar"></i></button>
+                            </div>
+                        </div>
+                        <p *ngIf="submitted && invalidDeadlineDate" class="text-danger">Enter a valid deadline.</p>
+                        <p *ngIf="submitted && showFutureDateError" class="text-danger">Deadline needs to be a future time.</p>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-12">
+                        <button class="btn btn-success" (click)="askTreat()"><i class="fa fa-spinner fa-spin" *ngIf="showAskLoader"></i> Ask</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-12">
+    </div>
+</div>
+
+<!-- Firnds Modal -->
+<div class="modal fade" id="firndsInModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title normal-text" id="modalLabel">Choose a friend</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row form-group">
+                    <div class="col-12">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search friends" (change)="friendSearch($event)">
+                            <span class="input-group-btn">
+                                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-12">
+                        <table class="table table-bordered table-hover">
+                            <tbody>
+                                <tr *ngFor="let friend of serachedFriends" (click)="selectFriend(friend)" data-dismiss="modal">
+                                    <td>{{friend.name}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

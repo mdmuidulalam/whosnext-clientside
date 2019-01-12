@@ -10,7 +10,6 @@ const httpOptions = {
   })
 };
 
-
 @Injectable({
   providedIn: 'root'
 })

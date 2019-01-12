@@ -1,0 +1,58 @@
+<div style="padding-top: 10px;">
+    <div class="col-lg-8 col-sm-12">
+        <div class="box box-success">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-lg-8 col-sm-12">
+                        <h2 class="box-title"><i class="fas fa-history"></i> Trash</h2>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <h2> <input class="searchinput" placeholder="&#xF002; " type="text" [(ngModel)]="pagingViewModel.SearchText" (keydown)="onSearchKeydown($event)"/> </h2>
+                    </div>
+                </div>
+                <div class="row headpadding">
+                    <div class="col-lg-4 col-sm-12 text-center">
+                        Name
+                    </div>
+                    <div class="col-lg-4 col-sm-12 text-center">
+                        Reason
+                    </div>
+                    <div class="col-lg-4 col-sm-12 text-center">
+                        Creation Date
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngFor="let treat of treats">
+            <div class="box" @fadeInOut [ngClass]="{'box-success' : userId != treat.askedTo, 'box-warning' : userId == treat.askedTo}">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-12 text-center">
+                            <div *ngIf="userId != treat.askedBy"><i class="fas fa-concierge-bell"></i> {{treat.askedByName}}</div>
+                            <div *ngIf="userId != treat.askedTo"><i class="fas fa-gift"></i> {{treat.askedToName}}</div>
+                        </div>
+                        <div class="col-lg-4 col-sm-12 text-center">
+                            {{treat.reason}}
+                        </div>
+                        <div class="col-lg-4 col-sm-12 text-center">
+                            {{treat.createDate | date: 'MMM d, y'}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div>
+                <span @fadeInOut class="pagenumber prevnext" *ngIf="showPagingPrevious" (click)= "onPagePreviousClick()">
+                    <span>Previous &nbsp;&nbsp;&nbsp;</span>
+                </span>
+                <span @fadeInOut class="pagenumber" [ngClass]="{'text-warning' : pagingViewModel.PageNumber == number}" *ngFor="let number of numbers" (click)= "onPageNumberClick(number)">
+                    {{number}}
+                </span>
+                <span @fadeInOut class="pagenumber prevnext" *ngIf="showPagingNext" (click)= "onPageNextClick()">
+                    <span>&nbsp;&nbsp;&nbsp;Next</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

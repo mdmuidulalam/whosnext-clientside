@@ -12,4 +12,26 @@ export class Helper {
             return true;
         }
     }
+
+    static queryStringBuilder(parameters: any){
+        var queryString: string = "?";
+        
+        const objectKeys = Object.keys(parameters) as Array<keyof any>;
+
+        for(var i =0 ; i < objectKeys.length ; i++ )
+        {
+            if(i != 0)
+            {
+                queryString += "&";
+            }
+            queryString += objectKeys[i].toString() + "=" + parameters[objectKeys[i]]; 
+        }
+        return queryString;
+    }
+    
+    static convertDateInCurrentTimeZone(date: any){
+        date = new Date(date);
+        date.setHours(date.getHours() - new Date().getTimezoneOffset()/60);
+        return date;
+    }
 }

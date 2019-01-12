@@ -7,6 +7,7 @@ import { SignUpViewModel } from '../../ViewModels/signUpViewModel';
 import { AccountsService } from '../../services/accounts.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Helper } from '../../helper/helper';
+import { GernderType } from '../../ViewModels/enums';
 
 @Component({
   selector: 'app-landingpage',
@@ -25,6 +26,7 @@ export class LandingpageComponent implements OnInit {
   submitted: boolean;
   signUpDuplicateEmail: boolean;
   invalidBirthDate: boolean;
+  gernderType = GernderType;
 
   get getSignUpFormControls() { return this.signUpForm.controls; }
 
@@ -65,7 +67,6 @@ export class LandingpageComponent implements OnInit {
 
   onBirthDateChange(birthDate: number, birthMonth: number, birthYear: number) {
     this.invalidBirthDate = !Helper.isValidDate(birthDate, birthMonth, birthYear);
-    console.log(birthDate, birthMonth, birthYear, this.invalidBirthDate);
   }
   
   
@@ -77,11 +78,11 @@ export class LandingpageComponent implements OnInit {
     logInViewModel.Email = event.target.querySelector("#loginemail").value;
     logInViewModel.Password = event.target.querySelector("#loginpassword").value;
 
-    this.auth.logIn(logInViewModel).subscribe( (responce: ResponseViewModelWithEntity) => {
+    this.auth.logIn(logInViewModel).subscribe((responce: ResponseViewModelWithEntity) => {
       if(responce.success){
         localStorage.setItem("AuthorizationToken",responce.entity.token);
         this.closeAddExpenseModal.nativeElement.click();
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home/treats']);
       }
       else{
         this.showAlter = true;
