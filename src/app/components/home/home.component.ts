@@ -70,13 +70,8 @@ export class HomeComponent implements OnInit {
   profileActive: boolean;
   logo: string;
 
-  constructor(private router: Router) { 
-    this.router.events.pipe(
-      //filter((event:Event) => event instanceof NavigationEnd)
-    ).subscribe(event => 
-    {
-      this.onSidebarItemClick(event['urlAfterRedirects'].slice(6, event['urlAfterRedirects'].length));
-    });
+  constructor(private router: Router) {
+    this.onSidebarItemClick(this.router.url.replace('/home/', ''));
   }
 
   ngOnInit() {
@@ -98,22 +93,22 @@ export class HomeComponent implements OnInit {
     this.trashActive = false;
     this.profileActive = false;
 
-    if (sideBarItem === 'treats'){
+    if (sideBarItem.startsWith('treats')) {
       this.treatsActive = true;
     }
-    else if (sideBarItem === 'asktreat') {
+    else if (sideBarItem.startsWith('asktreat')) {
       this.askTreatActive = true;
     }
-    else if (sideBarItem === 'treatrequests') {
+    else if (sideBarItem.startsWith('treatrequests')) {
       this.treatrequestsActive = true;
     }
-    else if (sideBarItem === 'treathistory') {
+    else if (sideBarItem.startsWith('treathistory')) {
       this.treatHistoryActive = true;
     }
-    else if (sideBarItem === 'trash') {
+    else if (sideBarItem.startsWith('trash')) {
       this.trashActive = true;
     }
-    else if (sideBarItem === 'profile') {
+    else if (sideBarItem.startsWith('profile')) {
       this.profileActive = true;
     }
   }
@@ -132,6 +127,7 @@ export class HomeComponent implements OnInit {
       this.logo = "WN";
     }
   }
+
   onResize(event) {
     if(event.target.innerWidth < 768) {
       this.sideBarCollopse = false;

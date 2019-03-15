@@ -1,72 +1,124 @@
 <div style="padding-top: 10px;">
-    <div class="col-lg-8 col-sm-12">
-        <div class="box box-success">
+  <div class="col-lg-8 col-sm-12">
+    <div class="box box-success">
+      <div class="box-body">
+        <h2 class="box-title"><i class="fas fa-utensils"></i> Treats</h2>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8 col-sm-12">
+    <div *ngFor="let treat of treats">
+      <div
+        *ngIf="
+          treat.Confirmation == treatStage.Trashed && treat.showNotification
+        "
+        @fadeInOut
+      >
+        <div class="alert alert-danger">
+          <a class="close" (click)="treat.showNotification = false">&times;</a>
+          <i class="fas fa-trash-alt"></i> Treat Moved to Trash.
+        </div>
+      </div>
+      <div
+        *ngIf="
+          treat.Confirmation == treatStage.Completed && treat.showNotification
+        "
+        @fadeInOut
+      >
+        <div class="alert alert-success">
+          <a class="close" (click)="treat.showNotification = false">&times;</a>
+          <i class="fas fa-gift"></i> Treat Confirmed. Reason:
+          {{ treat.reason }}
+        </div>
+      </div>
+      <div
+        *ngIf="treat.Confirmation == treatStage.Confirmed"
+        @fadeInOut
+        class="box"
+        [ngClass]="{
+          'box-success': userId != treat.AskedTo,
+          'box-warning': userId == treat.AskedTo
+        }"
+      >
+        <div class="box-body">
+          <div class="row form-group">
+            <div class="col-10">
+              <h3>
+                <i
+                  *ngIf="userId == treat.AskedTo"
+                  class="fas fa-concierge-bell"
+                ></i
+                ><i *ngIf="userId != treat.AskedTo" class="fas fa-gift"></i>
+                {{ treat.Heading }}
+              </h3>
+            </div>
+            <div class="col-2">
+              <div class="row">
+                <div class="col-8 hidden"></div>
+                <div class="col-4">
+                  <div class="dropdown">
+                    <a class="dropbtn text-center"
+                      ><i class="fas fa-ellipsis-v half-opacity"></i
+                    ></a>
+                    <div class="dropdown-content">
+                      <a (click)="onTreatMovetoTrashClick(treat.id)"
+                        ><i class="fas fa-trash-alt"></i> Move to Trash</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box box-group">
             <div class="box-body">
-                <h2 class="box-title"><i class="fas fa-utensils"></i> Treats</h2>
+              <h4 *ngIf="userId != treat.AskedTo" class="normal-text">
+                {{ treat.AskedToName }}
+              </h4>
+              <h4 *ngIf="userId != treat.AskedBy" class="normal-text">
+                {{ treat.AskedByName }}
+              </h4>
             </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-lg-8 col-sm-12">
+              <p for="reason">Reason</p>
+              <h6>{{ treat.Reason }}</h6>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+              <p for="deadline">Deadline</p>
+              <h6>{{ treat.Deadline | date: "EEEE, d MMM, y" }}</h6>
+            </div>
+          </div>
+          <div *ngIf="userId == treat.AskedBy" class="row form-group">
+            <div class="col-12">
+              <button
+                class="btn btn-success"
+                (click)="
+                  treat.showConpleteSpinner = true;
+                  onCompleteTrashClick(treat.id)
+                "
+              >
+                <i
+                  class="fa fa-spinner fa-spin"
+                  *ngIf="treat.showConpleteSpinner"
+                ></i>
+                Complete
+              </button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="col-lg-8 col-sm-12">
-        <div *ngFor="let treat of treats">
-            <div *ngIf="treat.confirmation == treatStage.Trashed && treat.showNotification" @fadeInOut>
-                <div class="alert alert-danger" >
-                    <a class="close" (click)="treat.showNotification = false;">&times;</a>
-                    <i class="fas fa-trash-alt"></i> Treat Moved to Trash.
-                </div>
-            </div>
-            <div *ngIf="treat.confirmation == treatStage.Completed && treat.showNotification" @fadeInOut>
-                <div class="alert alert-success" >
-                    <a class="close" (click)="treat.showNotification = false;">&times;</a>
-                    <i class="fas fa-gift"></i> Treat Confirmed. Reason: {{treat.reason}}
-                </div>
-            </div> 
-            <div *ngIf="treat.confirmation == treatStage.Confirmed" @fadeInOut class="box" [ngClass]="{'box-success' : userId != treat.askedTo, 'box-warning' : userId == treat.askedTo}">
-                <div class="box-body">
-                    <div class="row form-group">
-                        <div class="col-10">
-                            <h3><i *ngIf="userId == treat.askedTo" class="fas fa-concierge-bell"></i><i *ngIf="userId != treat.askedTo" class="fas fa-gift"></i> {{treat.heading}}</h3>
-                        </div>
-                        <div class="col-2">
-                            <div class="row">
-                                <div class="col-8 hidden"></div>
-                                <div class="col-4">
-                                    <div class="dropdown">
-                                        <a class="dropbtn text-center"><i class="fas fa-ellipsis-v half-opacity"></i></a>
-                                        <div class="dropdown-content">
-                                            <a (click)="onTreatMovetoTrashClick(treat.id)"><i class="fas fa-trash-alt"></i> Move to Trash</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box box-group">
-                        <div class="box-body">
-                            <h4 *ngIf="userId != treat.askedTo" class="normal-text">{{treat.askedToName}}</h4>
-                            <h4 *ngIf="userId != treat.askedBy" class="normal-text">{{treat.askedByName}}</h4>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-lg-8 col-sm-12">
-                            <p for="reason">Reason</p>
-                            <h6>{{treat.reason}}</h6>
-                        </div>
-                        <div class="col-lg-4 col-sm-12">
-                            <p for="deadline">Deadline</p>
-                            <h6>{{treat.deadline | date: 'EEEE, d MMM, y'}}</h6>
-                        </div>
-                    </div>
-                    <div *ngIf="userId == treat.askedBy" class="row form-group">
-                        <div class="col-12">
-                            <button class="btn btn-success" (click)="treat.showConpleteSpinner = true ;onCompleteTrashClick(treat.id);"><i class="fa fa-spinner fa-spin" *ngIf="treat.showConpleteSpinner"></i> Complete</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="showmore d-flex justify-content-center" >
-            <button class="btn btn-success" *ngIf="showShowMore" @fadeInOut (click)="onClickShowMore()">Show more</button>
-        </div>
+    <div class="showmore d-flex justify-content-center">
+      <button
+        class="btn btn-success"
+        *ngIf="showShowMore"
+        @fadeInOut
+        (click)="onClickShowMore()"
+      >
+        Show more
+      </button>
     </div>
+  </div>
 </div>
-

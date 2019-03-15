@@ -113,10 +113,8 @@ export class LandingpageComponent implements OnInit {
     this.accountsService.signUp(signUpViewModel).subscribe( (responce: ResponseViewModel) => {
       if(responce.success){
         this.showSignSuccessAlter = true;
-      }
-      else{
-        if(responce.errorDescriptions[0] === "DuplicateEmail")
-        {
+      } else {
+        if(responce.errorDescriptions[0] === "DuplicateEmail") {
           this.signUpDuplicateEmail = true;
         }
       }

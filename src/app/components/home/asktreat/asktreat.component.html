@@ -21,7 +21,7 @@
                     <div *ngIf="selectedFriend != null" class="col-lg-8 col-sm-12">
                         <div class="box box-success">
                             <div class="box-body">
-                                <h4 class="normal-text">{{selectedFriend.name}}</h4>
+                                <h4 class="normal-text">{{selectedFriend.Name}}</h4>
                             </div>
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                         <table class="table table-bordered table-hover">
                             <tbody>
                                 <tr *ngFor="let friend of serachedFriends" (click)="selectFriend(friend)" data-dismiss="modal">
-                                    <td>{{friend.name}}</td>
+                                    <td>{{friend.Name}}</td>
                                 </tr>
                             </tbody>
                         </table>
