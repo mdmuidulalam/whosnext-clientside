@@ -87,6 +87,8 @@
                   class="form-control"
                   placeholder="Enter Email"
                   id="loginemail"
+                  name="email"
+                  [(ngModel)]="logInViewModel.Email"
                 />
               </div>
               <div class="form-group col-12">
@@ -95,6 +97,8 @@
                   class="form-control"
                   placeholder="Password"
                   id="loginpassword"
+                  name="password"
+                  [(ngModel)]="logInViewModel.Password"
                 />
               </div>
             </div>
