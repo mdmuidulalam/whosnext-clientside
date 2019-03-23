@@ -42,7 +42,7 @@ hr.star-light {
 
 hr.star-light:after {
   color: #fff;
-  background-color: #00994f;
+  background-color: #027FCF;
 }
 
 hr.star-dark {
@@ -121,7 +121,7 @@ section h2 {
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link:hover {
-  color: #00994f;
+  color: #027FCF;
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link:active,
@@ -130,7 +130,7 @@ section h2 {
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link.active {
-  color: #00994f;
+  color: #027FCF;
 }
 
 #mainNav .navbar-toggler {
@@ -157,13 +157,13 @@ section h2 {
   }
   #mainNav .navbar-nav > li.nav-item > a.nav-link.active {
     color: #fff;
-    background: #00994f;
+    background: #027FCF;
   }
   #mainNav .navbar-nav > li.nav-item > a.nav-link.active:active,
   #mainNav .navbar-nav > li.nav-item > a.nav-link.active:focus,
   #mainNav .navbar-nav > li.nav-item > a.nav-link.active:hover {
     color: #fff;
-    background: #00994f;
+    background: #027FCF;
   }
   #mainNav.navbar-shrink {
     padding-top: 0.5rem;
@@ -252,7 +252,7 @@ header.masthead h2 {
 }
 
 .floating-label-form-group-with-focus label {
-  color: #00994f;
+  color: #027FCF;
 }
 
 form .row:first-child .floating-label-form-group {
@@ -271,13 +271,13 @@ form .row:first-child .floating-label-form-group {
 }
 
 a {
-  color: #00994f;
+  color: #027FCF;
 }
 
 a:focus,
 a:hover,
 a:active {
-  color: #128f76;
+  color: #026eb1;
 }
 
 .btn {
@@ -285,12 +285,12 @@ a:active {
 }
 
 .bg-primary {
-  background-color: #00994f !important;
+  background-color: #027FCF !important;
 }
 
 button.bg-primary:focus,
 button.bg-primary:hover {
-  background-color: #00994f !important;
+  background-color: #027FCF !important;
 }
 
 .bg-secondary {
@@ -298,7 +298,7 @@ button.bg-primary:hover {
 }
 
 .text-primary {
-  color: #00994f !important;
+  color: #027FCF !important;
 }
 
 .text-secondary {
@@ -306,15 +306,15 @@ button.bg-primary:hover {
 }
 
 .btn-primary {
-  background-color: #00994f;
-  border-color: #00994f;
+  background-color: #027FCF;
+  border-color: #027FCF;
 }
 
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active {
-  background-color: #128f76;
-  border-color: #128f76;
+  background-color: #026eb1;
+  border-color: #026eb1;
 }
 
 .btn-secondary {
